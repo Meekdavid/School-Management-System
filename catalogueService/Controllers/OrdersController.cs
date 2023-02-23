@@ -49,7 +49,7 @@ namespace catalogueService.Controllers
         private readonly IJsonFormatter _jsonFormatter;
 
         public OrdersController(IOrder orderRep, IMapper mapper, IUser userRep, IFee FeeRep, IConfiguration config,
-            ICustomer customerRep, ILogger<OrdersController> logger, ISqlprocess databaseHandler, catalogueDBContext dbcontext, IJsonFormatter jsonFormatter)
+        ICustomer customerRep, ILogger<OrdersController> logger, ISqlprocess databaseHandler, catalogueDBContext dbcontext, IJsonFormatter jsonFormatter)
         {
             this.orderRep = orderRep;
             this._mapper = mapper;
@@ -69,6 +69,7 @@ namespace catalogueService.Controllers
             _logger.LogInformation($"Category Request collected to be added is {Mboko}");
             try
             {
+                //Collect customer info from the database
                 var customer = await _customerRep.GetByIdAsync(Mboko.customerId);
                 if (customer == null)
                 {
@@ -79,12 +80,16 @@ namespace catalogueService.Controllers
                 var customerLastName = customer.lastName;
                 var customerPhoneNumber = customer.phoneNumber;
                 var customerUserID = customer.userId;
+
+                //Collect user info from the database
                 var user = await userRep.GetByIdAsync(customerUserID);
                 if (user == null)
                 {
                     _logger.LogInformation($"No user exists with the ID {customerUserID}");
                     return Ok($"No such user with ID: {customerUserID}");
                 }
+
+                //Check if this person exists, to carry on this order
                 if (customerFirstName == user.firstName && customerLastName == user.lastName && customerPhoneNumber == user.phoneNumber)
                 {
                     var FeeID = Mboko.FeeId;
@@ -94,9 +99,12 @@ namespace catalogueService.Controllers
                         _logger.LogInformation($"No fees exist for feeID {FeeID}");
                         return Ok($"No such Fee with ID: {FeeID}");
                     }
+
+                    //Get the total price
                     var FeeCost = (Mboko.quantity) * (thisFee.price);
                     var inputedCost = (Mboko.quantity) * (Mboko.amount);
-                    //var inputedCost = Mboko.amount;
+
+                    //Validate if the amount inputed is enough to pay for this
                     if (inputedCost == FeeCost)
                     {
                         Mboko.amount = inputedCost;
@@ -113,9 +121,9 @@ namespace catalogueService.Controllers
                         _logger.LogInformation($"Current orderstatus for this Fee is {orderStatus}");
 
                         var orderID = domainOrder.orderID;
-                        //var orderID2 = domainOrder.orderID;
                         using var connection3 = new SqlConnection(_configuration["ConnectionStrings:DefaultConnection"]);
 
+                        //First update the current status for this program payment
                         var query3 = "Update orders set orderStatus = @orderStatus where orderID = @orderID";
                         _logger.LogInformation($"SQL connection sucessfully opened to execute {query3}");
                         using var command3 = new SqlCommand(query3, connection3);
@@ -173,9 +181,12 @@ namespace catalogueService.Controllers
             }
         }
 
+
+        //View all program that users has shown interest for
         [HttpGet("View Registered Payments")]
         public async Task<IActionResult> GetAllWalkDifficulties()
         {
+            //This is to ensure only the admin has access to all the list of intended payment
             var thisUser = GetCurrentUser();
             if (thisUser.role.ToString().ToUpper() == "SUPER ADMIN")
             {
@@ -189,7 +200,10 @@ namespace catalogueService.Controllers
             }
             else
             {
+                //Limit the list of intended payments only to ones done by this user, if they aren't an admin
                 var customerID = (await _dbcontext.Customers.FirstOrDefaultAsync(x => x.userId == thisUser.userId)).customerId;
+                
+                //Get the records from the database using ADO.NET
                 var query = "Select * from  orders where customerID = @customerID";
 
                 SqlParameter[] Params = new SqlParameter[]
@@ -239,11 +253,15 @@ namespace catalogueService.Controllers
                     var orderAmount = domainOrder.amount;
                     var userId = GetCurrentUser().userId;
                     var thisUser = await userRep.GetByIdAsync(userId);
+                    
+                    //Check if this user exists at all
                     if (thisUser == null)
                     {
                         _logger.LogInformation($"No such user with ID: {userId}");
                         return Ok($"No such user with ID: {userId}");
                     }
+
+                    //Check if the wallet is even funded for this transaction
                     if (thisUser.wallet == null)
                     {
                         _logger.LogInformation($"The userID {userId} Wallet balance is  empty for this transaction");
@@ -251,9 +269,10 @@ namespace catalogueService.Controllers
                     }
                     var availableBalanace = decimal.Parse(thisUser.wallet);
 
+                    //Ensure this Program has not be paid for from this user
                     if (domainOrder.orderStatus.ToString().ToUpper() != "PAID")
                     {
-
+                        //Check if the user has sufficient funds for this transaction
                         if (availableBalanace < orderAmount)
                         {
                             _logger.LogInformation($"The userID {userId} has Insufficient funds");
@@ -268,9 +287,10 @@ namespace catalogueService.Controllers
                             var amount = domainOrder.amount;
                             var customerID = domainOrder.customerId;
                            
+                            //Check if there are sufficient slots left for the User's demand
                             if (thisFee.quantity > domainOrder.quantity)
                             {
-
+                                //Update the sales table, to reflect this product is bought
                                 var query = "Insert Into sales(datePaid, salesType, amount, customerID) Values(@datePaid, @salesType, @amount, @customerID)";
                                 
                                 SqlParameter[] Params = new SqlParameter[]
@@ -290,6 +310,7 @@ namespace catalogueService.Controllers
                                 _logger.LogInformation($"Sales table successfully updated for query: {query}");
 
 
+                                //Deduct the cost of this transaction from the User's wallet
                                 var wallet = (availableBalanace - orderAmount).ToString();
 
                                 var query2 = "Update users set wallet = @wallet where userId = @userId";
@@ -307,7 +328,7 @@ namespace catalogueService.Controllers
                                 }
                                 _logger.LogInformation($"Customer's wallet successfully updated for query: {query2}");                             
 
-                                
+                                //Update the order status to convey this program has been successfully paid for by the User
                                 var orderStatus = "Paid";
                                 var query3 = "Update orders set orderStatus = @orderStatus where orderID = @orderID";
 
@@ -326,7 +347,7 @@ namespace catalogueService.Controllers
                                 _logger.LogInformation($"Order status successfully updated for query: {query3}");                               
 
                                 
-
+                                //Update the slots of program that is left
                                 var quantity = (thisFee.quantity) - (await orderRep.GetByIdAsync(orderID)).quantity;
 
                                 var query4 = "Update Fees set quantity = @quantity where FeeID = @FeeID";                              
@@ -345,7 +366,7 @@ namespace catalogueService.Controllers
                                 }
                                 _logger.LogInformation($"Slots left successfully updated for query: {query4}");
 
-
+                                //Generate the receipt for this transaction
                                 _logger.LogInformation($"About generating reciept for customer: {customerID}");
                                 string filePath = "./ReportTemplate/receipts.html";
                                 string receipthtml = System.IO.File.ReadAllText(filePath);
@@ -392,6 +413,7 @@ namespace catalogueService.Controllers
             }
         }
 
+        //After showing interest for a program, Cancell your interest from here
         [HttpPost("Cancel Payment")]
         public async Task<IActionResult> CancelOrderAsync(int orderID)
         {

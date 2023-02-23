@@ -22,6 +22,7 @@ namespace catalogueService.Controllers
     [Authorize]
     public class AdminProfileController : ControllerBase
     {
+        //Initialize dependency
         private readonly IUser _userRep;
         private readonly IAdmin _admin;
         private readonly ICategory _category;
@@ -33,6 +34,7 @@ namespace catalogueService.Controllers
 
         public AdminProfileController(IUser userRep, IAdmin admin, ICategory category, ICustomer customer, IJsonFormatter jsonFormatter, ISqlprocess sqlprocess, IMapper mapper, catalogueDBContext dbcontext)
         {
+            //Inject dependecies in class's constructor
             _userRep = userRep;
             _admin = admin;
             _category = category;
@@ -48,11 +50,13 @@ namespace catalogueService.Controllers
         [Authorize(Roles = "Super Admin")]
         public async Task<IActionResult> GetAdminAsync()
         {
+            //Get Admin details from admin repo
             var (IsSucess, adminDomain) = await _admin.GetAdminAsync();
             if (!IsSucess)
             {
                 return NotFound();
             }
+            //Convert the admin details to model passed back to client
             var adminDTO = _mapper.Map<IEnumerable<adminModel>>(adminDomain);
             return Ok(adminDTO);
         }
@@ -62,11 +66,13 @@ namespace catalogueService.Controllers
         [Route("Get All Students")]
         public async Task<IActionResult> GetStudentAsync()
         {
+            //Get Student details from student repo
             var (IsSucess, studentDomain) = await _admin.GetStudentAsync();
             if (!IsSucess)
             {
                 return NotFound();
             }
+            //Convert the student details to model passed back to client
             var studentDTO = _mapper.Map<IEnumerable<studentModel>>(studentDomain);
             return Ok(studentDTO);
         }
@@ -76,11 +82,13 @@ namespace catalogueService.Controllers
         [Route("Get All Teachers")]
         public async Task<IActionResult> GetTeacherAsync()
         {
+            //Get Teacher details from admin repo
             var (IsSucess, teacherDomain) = await _admin.GetTeacherAsync();
             if (!IsSucess)
             {
                 return NotFound();
             }
+            //Convert the teacher details to model passed back to client
             var teacherDTO = _mapper.Map<IEnumerable<teacherModel>>(teacherDomain);
             return Ok(teacherDTO);
         }
@@ -90,11 +98,13 @@ namespace catalogueService.Controllers
         [Route("Fetch Exam Records")]
         public async Task<IActionResult> FetchExamRecordsAsync()
         {
+            //Get Exam details from admin repo
             var (IsSucess, examDomain) = await _admin.FetchExamRecordsAsync();
             if (!IsSucess)
             {
                 return NotFound();
             }
+            //Convert the exams details to model passed back to client
             var examDTO = _mapper.Map<IEnumerable<ExamModel>>(examDomain);
             return Ok(examDTO);
         }
@@ -104,6 +114,7 @@ namespace catalogueService.Controllers
         [Authorize(Roles = "Super Admin")]
         public async Task<IActionResult> GetAdminByIdAsync(int id)
         {
+            //Get Admin details from admin repo
             var repoUser = await _admin.GetAdminByIdAsync(id);
             if (repoUser == null)
             {
@@ -121,6 +132,7 @@ namespace catalogueService.Controllers
         [Authorize(Roles = "Super Admin, Teacher, Student")]
         public async Task<IActionResult> GetStudentByIdAsync(int id)
         {
+            //Get student details from admin repo
             var repoUser = await _admin.GetStudentByIdAsync(id);
             if (repoUser == null)
             {
@@ -138,6 +150,7 @@ namespace catalogueService.Controllers
         [Authorize(Roles = "Super Admin, Teacher")]
         public async Task<IActionResult> GetTeacherByIdAsync(int id)
         {
+            //Get Teacher details from admin repo
             var repoUser = await _admin.GetTeacherByIdAsync(id);
             if (repoUser == null)
             {
@@ -155,6 +168,7 @@ namespace catalogueService.Controllers
         [Authorize(Roles = "Super Admin, Teacher, Student")]
         public async Task<IActionResult> GetExamByIdAsync(int id)
         {
+            //Get Exam details from admin repo
             var repoUser = await _admin.GetExamByIdAsync(id);
             if (repoUser == null)
             {
@@ -305,6 +319,7 @@ namespace catalogueService.Controllers
         {
             try
             {
+                //Get student details from the repository
                 var domainUser = await _admin.GradeStudentAsync(idPIPEgpa);
                 if (domainUser == "FALSE")
                 {
@@ -325,6 +340,7 @@ namespace catalogueService.Controllers
         {
             try
             {
+                //Ammend database, to implement the deletion of the student
                 var domainUser = await _admin.WithdrawStudentAsync(regNo);
                 if (domainUser == null)
                 {
@@ -344,6 +360,7 @@ namespace catalogueService.Controllers
         [Authorize(Roles = "Super Admin, Teacher")]
         public async Task<IActionResult> WithdrawStudentAsync()
         {
+            //Get the list of withdrawn students
             var thisStudent = await _dbcontext.withdrawnStudents.ToListAsync();
 
             return Ok(thisStudent);
@@ -356,6 +373,7 @@ namespace catalogueService.Controllers
         {
             try
             {
+                //Get the required user by their Id
                 var domainUser = await _userRep.GetByIdAsync(request.userID);
                 if (domainUser == null)
                 {
@@ -390,6 +408,7 @@ namespace catalogueService.Controllers
 
                 var userDomainN = _mapper.Map<users>(thisUser);
 
+                //Update the database witht the ammended user model
                 var updatedUser = await _userRep.UpdateAsync(request.userID, userDomainN);
 
                 return Ok(new Response { response = $"user role sucessfully assigned for '{domainUser.userName}'" });

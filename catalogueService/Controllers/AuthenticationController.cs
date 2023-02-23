@@ -31,7 +31,6 @@ namespace JWTAuthentication.Controllers
     [ApiController]
     [Route("api/[controller]")]
     
-    //[Authorize(Roles = "Super Admin")]
     public class AuthenticateController : ControllerBase
     {
         private readonly IConfiguration _configuration;
@@ -68,6 +67,7 @@ namespace JWTAuthentication.Controllers
             _logger.LogInformation($"There is no user with Username: {userLogin.userName}");
             return NotFound("User Not Registered");
 
+            //Create the security identity and assigned user attributes to it
             string Generate(users user)
             {
                 var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
@@ -89,8 +89,11 @@ namespace JWTAuthentication.Controllers
 
                 return new JwtSecurityTokenHandler().WriteToken(token);
             }
+
+
             users Authenticate(LoginModel userLogin)
             {
+                //Validdate the current user
                 var currentUser = _dbcontext.Users.FirstOrDefault(o => o.userName.ToLower() == userLogin.userName.ToLower() && o.password == userLogin.password);
                 if (currentUser != null)
                 {
