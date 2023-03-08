@@ -1,0 +1,167 @@
+2023-03-08 07:44:24.107 +01:00 [INF] User profile is available. Using 'C:\Users\David Mboko\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2023-03-08 07:44:25.357 +01:00 [INF] Application started. Press Ctrl+C to shut down.
+2023-03-08 07:44:25.358 +01:00 [INF] Hosting environment: Development
+2023-03-08 07:44:25.358 +01:00 [INF] Content root path: C:\Users\David Mboko\Desktop\Git\School-Management-System\catalogueService
+2023-03-08 07:44:25.462 +01:00 [INF] Request starting HTTP/2.0 GET https://localhost:44388/swagger/index.html  
+2023-03-08 07:44:26.453 +01:00 [INF] HTTP GET /swagger/index.html responded 200 in 904.9267 ms
+2023-03-08 07:44:26.469 +01:00 [INF] Request starting HTTP/2.0 GET https://localhost:44388/_framework/aspnetcore-browser-refresh.js  
+2023-03-08 07:44:26.494 +01:00 [INF] Request finished in 22.2376ms 200 application/javascript; charset=utf-8
+2023-03-08 07:44:26.537 +01:00 [INF] Request finished in 1088.1156ms 200 text/html;charset=utf-8
+2023-03-08 07:44:26.553 +01:00 [INF] Request starting HTTP/2.0 GET https://localhost:44388/_vs/browserLink  
+2023-03-08 07:44:26.698 +01:00 [INF] Request finished in 145.2025ms 200 text/javascript; charset=UTF-8
+2023-03-08 07:44:26.870 +01:00 [INF] Request starting HTTP/2.0 GET https://localhost:44388/swagger/v1/swagger.json  
+2023-03-08 07:44:27.311 +01:00 [INF] HTTP GET /swagger/v1/swagger.json responded 200 in 440.6340 ms
+2023-03-08 07:44:27.312 +01:00 [INF] Request finished in 442.3748ms 200 application/json;charset=utf-8
+2023-03-08 07:47:26.369 +01:00 [INF] Request starting HTTP/2.0 POST https://localhost:44388/api/Authenticate/login application/json 67
+2023-03-08 07:47:26.409 +01:00 [INF] Executing endpoint 'JWTAuthentication.Controllers.AuthenticateController.Login (catalogueService)'
+2023-03-08 07:47:26.492 +01:00 [INF] Route matched with {action = "Login", controller = "Authenticate"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Login(catalogueService.Authentication.LoginModel) on controller JWTAuthentication.Controllers.AuthenticateController (catalogueService).
+2023-03-08 07:47:27.641 +01:00 [INF] Login request received is Username: mbokodavid@gmail.com
+2023-03-08 07:47:29.332 +01:00 [WRN] No type was specified for the decimal column 'amount' on entity type 'orders'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values using 'HasColumnType()'.
+2023-03-08 07:47:29.333 +01:00 [WRN] No type was specified for the decimal column 'amount' on entity type 'sales'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values using 'HasColumnType()'.
+2023-03-08 07:47:29.336 +01:00 [WRN] No type was specified for the decimal column 'salary' on entity type 'job'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values using 'HasColumnType()'.
+2023-03-08 07:47:29.456 +01:00 [INF] Entity Framework Core 3.1.5 initialized 'catalogueDBContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2023-03-08 07:47:30.852 +01:00 [INF] Executed DbCommand (122ms) [Parameters=[@__ToLower_0='?' (Size = 4000), @__userLogin_password_1='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [u].[userId], [u].[firstName], [u].[lastName], [u].[locationId], [u].[password], [u].[phoneNumber], [u].[role], [u].[typeId], [u].[userName], [u].[wallet]
+FROM [Users] AS [u]
+WHERE (LOWER([u].[userName]) = @__ToLower_0) AND ([u].[password] = @__userLogin_password_1)
+2023-03-08 07:47:31.043 +01:00 [INF] The Username of the current user is: mbokodavid@gmail.com
+2023-03-08 07:47:31.043 +01:00 [INF] Username: mbokodavid@gmail.com successfully logged in
+2023-03-08 07:47:31.335 +01:00 [INF] Executing ObjectResult, writing value of type 'System.String'.
+2023-03-08 07:47:31.350 +01:00 [INF] Executed action JWTAuthentication.Controllers.AuthenticateController.Login (catalogueService) in 4847.0678ms
+2023-03-08 07:47:31.351 +01:00 [INF] Executed endpoint 'JWTAuthentication.Controllers.AuthenticateController.Login (catalogueService)'
+2023-03-08 07:47:31.351 +01:00 [INF] HTTP POST /api/Authenticate/login responded 200 in 4975.5129 ms
+2023-03-08 07:47:31.364 +01:00 [INF] Request finished in 4998.878ms 200 text/plain; charset=utf-8
+2023-03-08 07:49:30.807 +01:00 [INF] Request starting HTTP/2.0 GET https://localhost:44388/api/StudentProfile/View Available Courses  
+2023-03-08 07:49:30.964 +01:00 [INF] Successfully validated the token.
+2023-03-08 07:49:30.977 +01:00 [INF] Authorization was successful.
+2023-03-08 07:49:30.978 +01:00 [INF] Executing endpoint 'catalogueService.Controllers.StudentProfileController.GetCoursesAsync (catalogueService)'
+2023-03-08 07:49:30.992 +01:00 [INF] Route matched with {action = "GetCourses", controller = "StudentProfile"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetCoursesAsync() on controller catalogueService.Controllers.StudentProfileController (catalogueService).
+2023-03-08 07:49:31.051 +01:00 [INF] Entity Framework Core 3.1.5 initialized 'catalogueDBContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2023-03-08 07:49:31.159 +01:00 [INF] Executed DbCommand (40ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[courseId], [c].[courseTitle], [c].[createdOn], [c].[programId]
+FROM [Courses] AS [c]
+2023-03-08 07:49:31.209 +01:00 [INF] Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[catalogueService.Database.DBsets.Course, catalogueService, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2023-03-08 07:49:31.224 +01:00 [INF] Executed action catalogueService.Controllers.StudentProfileController.GetCoursesAsync (catalogueService) in 232.0454ms
+2023-03-08 07:49:31.225 +01:00 [INF] Executed endpoint 'catalogueService.Controllers.StudentProfileController.GetCoursesAsync (catalogueService)'
+2023-03-08 07:49:31.226 +01:00 [INF] HTTP GET /api/StudentProfile/View Available Courses responded 200 in 416.9504 ms
+2023-03-08 07:49:31.226 +01:00 [INF] Request finished in 420.0868ms 200 application/json; charset=utf-8
+2023-03-08 07:50:05.630 +01:00 [INF] Request starting HTTP/2.0 GET https://localhost:44388/api/StudentProfile/View Available Programs  
+2023-03-08 07:50:05.647 +01:00 [INF] Successfully validated the token.
+2023-03-08 07:50:05.678 +01:00 [INF] Authorization was successful.
+2023-03-08 07:50:05.678 +01:00 [INF] Executing endpoint 'catalogueService.Controllers.StudentProfileController.GetProgramsAsync (catalogueService)'
+2023-03-08 07:50:05.688 +01:00 [INF] Route matched with {action = "GetPrograms", controller = "StudentProfile"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetProgramsAsync() on controller catalogueService.Controllers.StudentProfileController (catalogueService).
+2023-03-08 07:50:05.707 +01:00 [INF] Entity Framework Core 3.1.5 initialized 'catalogueDBContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2023-03-08 07:50:05.747 +01:00 [INF] Executed DbCommand (20ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [f].[FeeId], [f].[categoryId], [f].[description], [f].[name], [f].[price], [f].[quantity]
+FROM [Fees] AS [f]
+2023-03-08 07:50:05.768 +01:00 [INF] Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[catalogueService.Database.Fee, catalogueService, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2023-03-08 07:50:05.778 +01:00 [INF] Executed action catalogueService.Controllers.StudentProfileController.GetProgramsAsync (catalogueService) in 89.5945ms
+2023-03-08 07:50:05.781 +01:00 [INF] Executed endpoint 'catalogueService.Controllers.StudentProfileController.GetProgramsAsync (catalogueService)'
+2023-03-08 07:50:05.782 +01:00 [INF] HTTP GET /api/StudentProfile/View Available Programs responded 200 in 143.7778 ms
+2023-03-08 07:50:05.783 +01:00 [INF] Request finished in 154.6749ms 200 application/json; charset=utf-8
+2023-03-08 07:51:00.344 +01:00 [INF] Request starting HTTP/2.0 GET https://localhost:44388/api/Sales/View all Sales  
+2023-03-08 07:51:00.351 +01:00 [INF] Successfully validated the token.
+2023-03-08 07:51:00.355 +01:00 [INF] Authorization was successful.
+2023-03-08 07:51:00.356 +01:00 [INF] Executing endpoint 'catalogueService.Controllers.SalesController.GetAllWalkDifficulties (catalogueService)'
+2023-03-08 07:51:00.366 +01:00 [INF] Route matched with {action = "GetAllWalkDifficulties", controller = "Sales"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAllWalkDifficulties() on controller catalogueService.Controllers.SalesController (catalogueService).
+2023-03-08 07:51:00.375 +01:00 [INF] Entity Framework Core 3.1.5 initialized 'catalogueDBContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2023-03-08 07:51:00.392 +01:00 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [s].[saleId], [s].[amount], [s].[customerID], [s].[datePaid], [s].[salesType]
+FROM [sales] AS [s]
+2023-03-08 07:51:00.500 +01:00 [INF] Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[catalogueService.Models.saleModel, catalogueService, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2023-03-08 07:51:00.512 +01:00 [INF] Executed action catalogueService.Controllers.SalesController.GetAllWalkDifficulties (catalogueService) in 145.9286ms
+2023-03-08 07:51:00.513 +01:00 [INF] Executed endpoint 'catalogueService.Controllers.SalesController.GetAllWalkDifficulties (catalogueService)'
+2023-03-08 07:51:00.513 +01:00 [INF] HTTP GET /api/Sales/View all Sales responded 200 in 167.7780 ms
+2023-03-08 07:51:00.518 +01:00 [INF] Request finished in 174.303ms 200 application/json; charset=utf-8
+2023-03-08 07:51:37.491 +01:00 [INF] Request starting HTTP/2.0 GET https://localhost:44388/api/StudentProfile/View Profile?regNo=1  
+2023-03-08 07:51:37.497 +01:00 [INF] Successfully validated the token.
+2023-03-08 07:51:37.499 +01:00 [INF] Authorization was successful.
+2023-03-08 07:51:37.500 +01:00 [INF] Executing endpoint 'catalogueService.Controllers.StudentProfileController.GetStudentByIdAsync (catalogueService)'
+2023-03-08 07:51:37.521 +01:00 [INF] Route matched with {action = "GetStudentById", controller = "StudentProfile"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetStudentByIdAsync(Int32) on controller catalogueService.Controllers.StudentProfileController (catalogueService).
+2023-03-08 07:51:37.559 +01:00 [INF] Entity Framework Core 3.1.5 initialized 'catalogueDBContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2023-03-08 07:51:37.603 +01:00 [INF] Executed DbCommand (15ms) [Parameters=[@__p_0='?' (DbType = Int64)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [s].[regNo], [s].[Address], [s].[GPA], [s].[_usersuserId], [s].[coursesTaken], [s].[dateOfBirth], [s].[emailAddress], [s].[enrollmentStatus], [s].[firstName], [s].[gender], [s].[graduationDate], [s].[lastName], [s].[phoneNo], [s].[program], [s].[registrationDate], [s].[userId]
+FROM [Students] AS [s]
+WHERE [s].[regNo] = @__p_0
+2023-03-08 07:51:37.610 +01:00 [INF] Executing ObjectResult, writing value of type 'Microsoft.AspNetCore.Mvc.ProblemDetails'.
+2023-03-08 07:51:37.617 +01:00 [INF] Executed action catalogueService.Controllers.StudentProfileController.GetStudentByIdAsync (catalogueService) in 94.9992ms
+2023-03-08 07:51:37.621 +01:00 [INF] Executed endpoint 'catalogueService.Controllers.StudentProfileController.GetStudentByIdAsync (catalogueService)'
+2023-03-08 07:51:37.621 +01:00 [INF] HTTP GET /api/StudentProfile/View Profile responded 404 in 129.5966 ms
+2023-03-08 07:51:37.623 +01:00 [INF] Request finished in 133.0099ms 404 application/problem+json; charset=utf-8
+2023-03-08 07:51:48.857 +01:00 [INF] Request starting HTTP/2.0 GET https://localhost:44388/api/StudentProfile/View Profile?regNo=2  
+2023-03-08 07:51:48.863 +01:00 [INF] Successfully validated the token.
+2023-03-08 07:51:48.866 +01:00 [INF] Authorization was successful.
+2023-03-08 07:51:48.867 +01:00 [INF] Executing endpoint 'catalogueService.Controllers.StudentProfileController.GetStudentByIdAsync (catalogueService)'
+2023-03-08 07:51:48.871 +01:00 [INF] Route matched with {action = "GetStudentById", controller = "StudentProfile"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetStudentByIdAsync(Int32) on controller catalogueService.Controllers.StudentProfileController (catalogueService).
+2023-03-08 07:51:48.879 +01:00 [INF] Entity Framework Core 3.1.5 initialized 'catalogueDBContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2023-03-08 07:51:48.895 +01:00 [INF] Executed DbCommand (3ms) [Parameters=[@__p_0='?' (DbType = Int64)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [s].[regNo], [s].[Address], [s].[GPA], [s].[_usersuserId], [s].[coursesTaken], [s].[dateOfBirth], [s].[emailAddress], [s].[enrollmentStatus], [s].[firstName], [s].[gender], [s].[graduationDate], [s].[lastName], [s].[phoneNo], [s].[program], [s].[registrationDate], [s].[userId]
+FROM [Students] AS [s]
+WHERE [s].[regNo] = @__p_0
+2023-03-08 07:51:48.985 +01:00 [INF] Executing ObjectResult, writing value of type 'catalogueService.Models.studentModel'.
+2023-03-08 07:51:48.998 +01:00 [INF] Executed action catalogueService.Controllers.StudentProfileController.GetStudentByIdAsync (catalogueService) in 124.9264ms
+2023-03-08 07:51:48.998 +01:00 [INF] Executed endpoint 'catalogueService.Controllers.StudentProfileController.GetStudentByIdAsync (catalogueService)'
+2023-03-08 07:51:48.999 +01:00 [INF] HTTP GET /api/StudentProfile/View Profile responded 200 in 139.3206 ms
+2023-03-08 07:51:49.003 +01:00 [INF] Request finished in 146.6255ms 200 application/json; charset=utf-8
+2023-03-08 07:52:14.294 +01:00 [INF] Request starting HTTP/2.0 GET https://localhost:44388/api/AdminProfile/View withdrawn students  
+2023-03-08 07:52:14.301 +01:00 [INF] Successfully validated the token.
+2023-03-08 07:52:14.303 +01:00 [INF] Authorization was successful.
+2023-03-08 07:52:14.305 +01:00 [INF] Executing endpoint 'catalogueService.Controllers.AdminProfileController.WithdrawStudentAsync (catalogueService)'
+2023-03-08 07:52:14.318 +01:00 [INF] Route matched with {action = "WithdrawStudent", controller = "AdminProfile"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] WithdrawStudentAsync() on controller catalogueService.Controllers.AdminProfileController (catalogueService).
+2023-03-08 07:52:14.329 +01:00 [INF] Entity Framework Core 3.1.5 initialized 'catalogueDBContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2023-03-08 07:52:14.349 +01:00 [INF] Executed DbCommand (7ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [w].[regNo], [w].[Address], [w].[GPA], [w].[_usersuserId], [w].[coursesTaken], [w].[dateOfBirth], [w].[emailAddress], [w].[enrollmentStatus], [w].[firstName], [w].[gender], [w].[graduationDate], [w].[lastName], [w].[phoneNo], [w].[program], [w].[registrationDate], [w].[userId]
+FROM [withdrawnStudents] AS [w]
+2023-03-08 07:52:14.366 +01:00 [INF] Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[catalogueService.Database.DBsets.withdrawnStudents, catalogueService, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2023-03-08 07:52:14.375 +01:00 [INF] Executed action catalogueService.Controllers.AdminProfileController.WithdrawStudentAsync (catalogueService) in 56.6873ms
+2023-03-08 07:52:14.376 +01:00 [INF] Executed endpoint 'catalogueService.Controllers.AdminProfileController.WithdrawStudentAsync (catalogueService)'
+2023-03-08 07:52:14.378 +01:00 [INF] HTTP GET /api/AdminProfile/View withdrawn students responded 200 in 80.2631 ms
+2023-03-08 07:52:14.379 +01:00 [INF] Request finished in 85.4172ms 200 application/json; charset=utf-8
+2023-03-08 07:52:41.767 +01:00 [INF] Request starting HTTP/2.0 GET https://localhost:44388/api/Users  
+2023-03-08 07:52:41.776 +01:00 [INF] Successfully validated the token.
+2023-03-08 07:52:41.778 +01:00 [INF] Authorization was successful.
+2023-03-08 07:52:41.778 +01:00 [INF] Executing endpoint 'catalogueService.Controllers.UsersController.GetAllWalkDifficulties (catalogueService)'
+2023-03-08 07:52:41.794 +01:00 [INF] Route matched with {action = "GetAllWalkDifficulties", controller = "Users"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAllWalkDifficulties() on controller catalogueService.Controllers.UsersController (catalogueService).
+2023-03-08 07:52:41.806 +01:00 [INF] Entity Framework Core 3.1.5 initialized 'catalogueDBContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2023-03-08 07:52:41.839 +01:00 [INF] Executed DbCommand (10ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [u].[userId], [u].[firstName], [u].[lastName], [u].[locationId], [u].[password], [u].[phoneNumber], [u].[role], [u].[typeId], [u].[userName], [u].[wallet]
+FROM [Users] AS [u]
+2023-03-08 07:52:41.874 +01:00 [INF] Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[catalogueService.Models.userModel, catalogueService, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2023-03-08 07:52:41.888 +01:00 [INF] Executed action catalogueService.Controllers.UsersController.GetAllWalkDifficulties (catalogueService) in 91.8558ms
+2023-03-08 07:52:41.895 +01:00 [INF] Executed endpoint 'catalogueService.Controllers.UsersController.GetAllWalkDifficulties (catalogueService)'
+2023-03-08 07:52:41.896 +01:00 [INF] HTTP GET /api/Users responded 200 in 122.4124 ms
+2023-03-08 07:52:41.903 +01:00 [INF] Request finished in 140.577ms 200 application/json; charset=utf-8
+2023-03-08 07:53:20.643 +01:00 [INF] Request starting HTTP/2.0 POST https://localhost:44388/api/AdminProfile/Assign Role application/json 23
+2023-03-08 07:53:20.654 +01:00 [INF] Successfully validated the token.
+2023-03-08 07:53:20.656 +01:00 [INF] Authorization was successful.
+2023-03-08 07:53:20.656 +01:00 [INF] Executing endpoint 'catalogueService.Controllers.AdminProfileController.roleAssignmentAsync (catalogueService)'
+2023-03-08 07:53:20.670 +01:00 [INF] Route matched with {action = "roleAssignment", controller = "AdminProfile"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] roleAssignmentAsync(catalogueService.requestETresponse.roleRequest) on controller catalogueService.Controllers.AdminProfileController (catalogueService).
+2023-03-08 07:53:20.703 +01:00 [INF] Entity Framework Core 3.1.5 initialized 'catalogueDBContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2023-03-08 07:53:20.732 +01:00 [INF] Executed DbCommand (11ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [u].[userId], [u].[firstName], [u].[lastName], [u].[locationId], [u].[password], [u].[phoneNumber], [u].[role], [u].[typeId], [u].[userName], [u].[wallet]
+FROM [Users] AS [u]
+WHERE [u].[userId] = @__id_0
+2023-03-08 07:53:21.020 +01:00 [INF] Executed DbCommand (14ms) [Parameters=[@p1='?' (DbType = Int32), @p0='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SET NOCOUNT ON;
+UPDATE [Users] SET [role] = @p0
+WHERE [userId] = @p1;
+SELECT @@ROWCOUNT;
+2023-03-08 07:53:21.076 +01:00 [INF] Executing ObjectResult, writing value of type 'catalogueService.requestETresponse.Response'.
+2023-03-08 07:53:21.081 +01:00 [INF] Executed action catalogueService.Controllers.AdminProfileController.roleAssignmentAsync (catalogueService) in 410.3997ms
+2023-03-08 07:53:21.081 +01:00 [INF] Executed endpoint 'catalogueService.Controllers.AdminProfileController.roleAssignmentAsync (catalogueService)'
+2023-03-08 07:53:21.082 +01:00 [INF] HTTP POST /api/AdminProfile/Assign Role responded 200 in 438.0443 ms
+2023-03-08 07:53:21.083 +01:00 [INF] Request finished in 450.2174ms 200 application/json; charset=utf-8
+2023-03-08 07:53:43.354 +01:00 [INF] Request starting HTTP/2.0 GET https://localhost:44388/api/Users  
+2023-03-08 07:53:43.363 +01:00 [INF] Successfully validated the token.
+2023-03-08 07:53:43.364 +01:00 [INF] Authorization was successful.
+2023-03-08 07:53:43.364 +01:00 [INF] Executing endpoint 'catalogueService.Controllers.UsersController.GetAllWalkDifficulties (catalogueService)'
+2023-03-08 07:53:43.366 +01:00 [INF] Route matched with {action = "GetAllWalkDifficulties", controller = "Users"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAllWalkDifficulties() on controller catalogueService.Controllers.UsersController (catalogueService).
+2023-03-08 07:53:43.370 +01:00 [INF] Entity Framework Core 3.1.5 initialized 'catalogueDBContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2023-03-08 07:53:43.392 +01:00 [INF] Executed DbCommand (20ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [u].[userId], [u].[firstName], [u].[lastName], [u].[locationId], [u].[password], [u].[phoneNumber], [u].[role], [u].[typeId], [u].[userName], [u].[wallet]
+FROM [Users] AS [u]
+2023-03-08 07:53:43.404 +01:00 [INF] Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[catalogueService.Models.userModel, catalogueService, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2023-03-08 07:53:43.408 +01:00 [INF] Executed action catalogueService.Controllers.UsersController.GetAllWalkDifficulties (catalogueService) in 42.4468ms
+2023-03-08 07:53:43.412 +01:00 [INF] Executed endpoint 'catalogueService.Controllers.UsersController.GetAllWalkDifficulties (catalogueService)'
+2023-03-08 07:53:43.412 +01:00 [INF] HTTP GET /api/Users responded 200 in 56.0619 ms
+2023-03-08 07:53:43.413 +01:00 [INF] Request finished in 59.4369ms 200 application/json; charset=utf-8

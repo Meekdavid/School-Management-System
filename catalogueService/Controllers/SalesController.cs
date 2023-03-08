@@ -26,6 +26,7 @@ using Microsoft.AspNetCore.Http;
 using System.Data.SqlClient;
 using System.Data;
 using Microsoft.EntityFrameworkCore;
+using iTextSharp.text.pdf.parser;
 
 namespace catalogueService.Controllers
 {
@@ -196,6 +197,22 @@ namespace catalogueService.Controllers
 
                         //cLose the document
                         document.Close();
+
+                        //string pdfFilePath = "./GeneratedReports/" + thisUser.userId + "paymentsReport.pdf";
+                        //string pdfText = GetPdfText(pdfFilePath);
+                        //string plainText = ConvertHtmlToPlainText(pdfText);
+
+                        //Document documentConvert = new Document(PageSize.A4, 25, 25, 25, 25);
+                        //PdfWriter.GetInstance(documentConvert, new FileStream("./GeneratedReports/" + thisUser.userId + "ConvertedpaymentsReport.pdf", FileMode.Create));
+
+                        //// Open the document
+                        //documentConvert.Open();
+
+                        //// Add the StringBuilder content to the PDF document
+                        //documentConvert.Add(new Paragraph(plainText.ToString()));
+
+                        ////cLose the document
+                        //documentConvert.Close();
                     }
                 }                
             }
@@ -224,6 +241,33 @@ namespace catalogueService.Controllers
             }
             return null;
         }
-       
+
+        private string GetPdfText(string pdfFilePath)
+        {
+            StringBuilder text = new StringBuilder();
+
+            var reader = new PdfReader(pdfFilePath);
+                for (int i = 1; i <= reader.NumberOfPages; i++)
+                {
+                    string pageText = PdfTextExtractor.GetTextFromPage(reader, i, new LocationTextExtractionStrategy());
+                    text.Append(pageText);
+                }
+                reader.Close();
+            return text.ToString();
+        }
+
+        private string ConvertHtmlToPlainText(string html)
+        {
+            var document = new iTextSharp.text.Document();
+            document.Open();
+            var writer = new StringWriter();
+            var htmlWorker = new iTextSharp.text.html.simpleparser.HTMLWorker(document);
+
+            htmlWorker.Parse(new StringReader(html));
+            document.Close();
+
+            return document.ToString();
+        }
+
     }
 }

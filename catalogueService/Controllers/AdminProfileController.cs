@@ -249,6 +249,15 @@ namespace catalogueService.Controllers
                     {
                         var domainUser = _mapper.Map<student>(Mboko);
 
+                        var thisStudent = await _dbcontext.Students.ToListAsync();
+                        foreach(var student in thisStudent)
+                        {
+                            if (student.emailAddress == Mboko.emailAddress && student.firstName == Mboko.firstName && student.lastName == Mboko.lastName)
+                            {
+                                return Ok("User already registered as a student");
+                            }
+                        }
+
                         // Pass details to Repositpory
                         domainUser = await _admin.AddStudentAsync(domainUser);
                         if (domainUser == null)
@@ -261,7 +270,7 @@ namespace catalogueService.Controllers
                         returner = Ok(new Response { response = $"Student '{customerDTO.firstName} {customerDTO.lastName}' added successfully" });
 
                     }
-                    returner = Ok($"There are no users with ID: {Mboko.userId}");
+                    returner = Ok($"There are no users with ID: {Mboko.userId}, Or information provided doesn't match the UserID");
                 }
 
                 
@@ -288,6 +297,15 @@ namespace catalogueService.Controllers
                     if (user.userId == Mboko.userId)
                     {
                         var domainUser = _mapper.Map<Teacher>(Mboko);
+
+                        var thisTeacher = await _dbcontext.Students.ToListAsync();
+                        foreach (var teacher in thisTeacher)
+                        {
+                            if (teacher.emailAddress == Mboko.emailAddress && teacher.firstName == Mboko.firstName && teacher.lastName == Mboko.lastName)
+                            {
+                                return Ok("User already registered as a Teacher");
+                            }
+                        }
 
                         // Pass details to Repositpory
                         domainUser = await _admin.AddTeacherAsync(domainUser);

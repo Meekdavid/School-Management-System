@@ -18,6 +18,7 @@ using System.Data.SqlClient;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
 using Org.BouncyCastle.Asn1.Ocsp;
+using static Org.Jsoup.Select.Evaluator;
 
 namespace catalogueService.Controllers
 {
@@ -38,7 +39,7 @@ namespace catalogueService.Controllers
         private readonly ISqlprocess _databaseHandler;
         private readonly ILogger<StudentProfileController> _logger;
 
-        public StudentProfileController(IUser userRep, IAdmin admin, ICategory category, ICustomer customer, IJsonFormatter jsonFormatter, 
+        public StudentProfileController(IUser userRep, IAdmin admin, ICategory category, ICustomer customer, IJsonFormatter jsonFormatter, IFee program,
             ISqlprocess sqlprocess, IMapper mapper, catalogueDBContext dbcontext, ISqlprocess databaseHandler, ILogger<StudentProfileController> logger)
         {
             _userRep = userRep;
@@ -51,6 +52,7 @@ namespace catalogueService.Controllers
             _dbcontext = dbcontext;
             _databaseHandler = databaseHandler;
             _logger = logger;
+            _program= program;
         }
 
 
@@ -61,10 +63,11 @@ namespace catalogueService.Controllers
         {
             try
             {
-                var thisuser = GetCurrentUser();
-                if (thisuser.userId != Mboko.userId)
+                var thisuser = await _userRep.GetByIdAsync(Mboko.userId);
+                //var thisuser = GetCurrentUser();
+                if (thisuser.userName != Mboko.emailAddress)
                 {
-                    return Ok("Wrong user ID");
+                    return Ok("User Name Mismatch, Ensure you are using a valid User ID");
                 }
 
                 var domainUser = _mapper.Map<student>(Mboko);
@@ -127,7 +130,7 @@ namespace catalogueService.Controllers
         [Route("View Students by Programs")]
         public async Task<IActionResult> GetStudentByProgramAsync(int programID)
         {
-            var program = await _program.GetByIdAsync(programID);
+            var program = (await _program.GetByIdAsync(programID)).name;
             var query = "Select * from  Students where program = @program";
 
             SqlParameter[] Params = new SqlParameter[]
@@ -136,6 +139,7 @@ namespace catalogueService.Controllers
             };
 
             var studentsTable = await _databaseHandler.retrieveRecords(query, CommandType.Text, Params);
+
             if (!studentsTable.queryIsSuccessful)
             {
                 _logger.LogInformation($"An error occurres while retrieving student details with query: {query}");
@@ -144,6 +148,11 @@ namespace catalogueService.Controllers
             _logger.LogInformation($"Students table successfully retrieved for query: {query}");
 
             var returnObject = await _JsonFormatter.JsonFormat(studentsTable.objectValue);
+
+            if (returnObject == "" || returnObject == null)
+            {
+                return Ok("There are no students who are currently enrolled for this program");
+            }
 
             return Ok(returnObject);
 

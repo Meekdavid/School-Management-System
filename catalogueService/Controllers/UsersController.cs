@@ -23,11 +23,13 @@ namespace catalogueService.Controllers
     {
         private readonly IUser _userRep;
         private readonly IMapper _mapper;
+        private readonly ICustomer _customerRep;
 
-        public UsersController(IUser userRep, IMapper mapper)
+        public UsersController(IUser userRep, IMapper mapper, ICustomer customerRep)
         {
             _userRep = userRep;
             _mapper = mapper;
+            _customerRep = customerRep;
         }
 
         [HttpGet]
@@ -61,7 +63,16 @@ namespace catalogueService.Controllers
                 // Convert back to DTO
                 var customerDTO = _mapper.Map<userModel>(domainUser);
 
-                return Ok(new Response { response = $"New {customerDTO.role} added successfully" });
+                var newCustomerRequest = new customer()
+                {
+                    firstName = domainUser.firstName,
+                    lastName = domainUser.lastName,
+                    phoneNumber = domainUser.phoneNumber,
+                    userId = domainUser.userId,
+                };
+                var addCustomer = await _customerRep.AddCustomerAsync(newCustomerRequest);
+
+                return Ok(new Response { response = $"New {customerDTO.role} added successfully with userID: {domainUser.userId} and customerID: {addCustomer.customerId}" });
             }
             catch (Exception oxg)
             {

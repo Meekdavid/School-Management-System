@@ -11033,11 +11033,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\David Mboko\\Desktop\\Git\\LampNet-Assignment\\catalogueService\\catalogueService.csproj",
+      "projectUniqueName": "C:\\Users\\David Mboko\\Desktop\\Git\\School-Management-System\\catalogueService\\catalogueService.csproj",
       "projectName": "catalogueService",
-      "projectPath": "C:\\Users\\David Mboko\\Desktop\\Git\\LampNet-Assignment\\catalogueService\\catalogueService.csproj",
+      "projectPath": "C:\\Users\\David Mboko\\Desktop\\Git\\School-Management-System\\catalogueService\\catalogueService.csproj",
       "packagesPath": "C:\\Users\\David Mboko\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\David Mboko\\Desktop\\Git\\LampNet-Assignment\\catalogueService\\obj\\",
+      "outputPath": "C:\\Users\\David Mboko\\Desktop\\Git\\School-Management-System\\catalogueService\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\David Mboko\\AppData\\Roaming\\NuGet\\NuGet.Config",

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Po3vREnwRdLtfBNDOo7A5RYEj3rm1Gxr6YksWIocS4qyA1/WlxbSgALLrQAa++Zx0JpgzMU0cT8A+PcX+FUvNQ==",
+  "dgSpecHash": "tMN07E78M4YzgZZcCTsyU8MSbK+Nt53aSjh3YdchPLxnHXiq9Vl4lLSembWQP1h3bsf1yQbSKMK79WSTrff0ig==",
   "success": true,
-  "projectFilePath": "C:\\Users\\David Mboko\\Desktop\\Git\\LampNet-Assignment\\catalogueService\\catalogueService.csproj",
+  "projectFilePath": "C:\\Users\\David Mboko\\Desktop\\Git\\School-Management-System\\catalogueService\\catalogueService.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\David Mboko\\.nuget\\packages\\automapper\\10.0.0\\automapper.10.0.0.nupkg.sha512",
     "C:\\Users\\David Mboko\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\8.0.0\\automapper.extensions.microsoft.dependencyinjection.8.0.0.nupkg.sha512",

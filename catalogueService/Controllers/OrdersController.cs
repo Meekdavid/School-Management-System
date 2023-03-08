@@ -29,6 +29,7 @@ using System.IO;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 using iTextSharp.text.html.simpleparser;
+using Serilog.Formatting.Json;
 
 namespace catalogueService.Controllers
 {
@@ -220,7 +221,12 @@ namespace catalogueService.Controllers
                 _logger.LogInformation($"Order table successfully retrieved for query: {query}");
 
                 var returnObject = await _jsonFormatter.JsonFormat(ordersTable.objectValue);
-                
+
+                if (returnObject == "" || returnObject == null)
+                {
+                    return Ok("There are no booked payments for this user");
+                }
+
                 return Ok(returnObject);
 
             }
@@ -236,7 +242,7 @@ namespace catalogueService.Controllers
             }
 
             //Convert Domain to DTO
-            var orderDTO = _mapper.Map<supplierModel>(repoOrder);
+            var orderDTO = _mapper.Map<orderModel>(repoOrder);
 
             return Ok(orderDTO);
         }
@@ -376,10 +382,11 @@ namespace catalogueService.Controllers
                                 strHTMLBuilder = strHTMLBuilder.Replace("{CustomerName}", $"{thisUser.firstName} {thisUser.lastName}");
                                 strHTMLBuilder = strHTMLBuilder.Replace("{productName}", $"'{thisFee.name}'");
                                 strHTMLBuilder = strHTMLBuilder.Replace("{TransDate}", domainOrder.dateReceived.ToString());
-                                strHTMLBuilder = strHTMLBuilder.Replace("{TransRef}", domainOrder.paymentID);
-                                strHTMLBuilder = strHTMLBuilder.Replace("{Amount}", thisFee.price.ToString());
+                                strHTMLBuilder = strHTMLBuilder.Replace("{TransRef}", $"{thisFee.FeeId}{thisUser.userId}LPT{thisFee.categoryId}");
+                                strHTMLBuilder = strHTMLBuilder.Replace("{Amount}", (domainOrder.quantity * thisFee.price).ToString());
+                                strHTMLBuilder = strHTMLBuilder.Replace("{price}", thisFee.price.ToString());
                                 strHTMLBuilder = strHTMLBuilder.Replace("{OrderStatus}", "PAID");
-                                strHTMLBuilder = strHTMLBuilder.Replace("{Quantity}", quantity.ToString());
+                                strHTMLBuilder = strHTMLBuilder.Replace("{Quantity}", domainOrder.quantity.ToString());
 
                                 Document document = new Document(PageSize.A4, 25, 25, 25, 25);
                                 PdfWriter.GetInstance(document, new FileStream("./GeneratedReports/" + "00" + customerID + "paymentsReceipt.pdf", FileMode.Create));
